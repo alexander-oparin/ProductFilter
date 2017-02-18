@@ -41,6 +41,9 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '/' => 'site/index',
+                '/admin' => 'admin/index',
+                '/admin/login' => 'admin/login',
             ],
         ],
     ],

@@ -1,5 +1,5 @@
 <?php
-namespace backend\controllers;
+namespace frontend\controllers;
 
 use Yii;
 use yii\web\Controller;
@@ -8,9 +8,12 @@ use yii\filters\AccessControl;
 use common\models\LoginForm;
 
 /**
- * Site controller
+ * Admin controller
  */
-class SiteController extends Controller {
+class AdminController extends Controller {
+
+    public $layout = 'admin';
+
     /**
      * @inheritdoc
      */
@@ -29,12 +32,9 @@ class SiteController extends Controller {
                         'roles' => ['@'],
                     ],
                 ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
+                'denyCallback' => function ($rule, $action) {
+                    return $this->redirect(['/admin/login']);
+                },
             ],
         ];
     }
@@ -71,7 +71,7 @@ class SiteController extends Controller {
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->render('index');
         } else {
             return $this->render('login', [
                 'model' => $model,

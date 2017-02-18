@@ -3,7 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-use backend\assets\AppAsset;
+use frontend\assets\AppAsset;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -27,22 +27,23 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
+        'brandLabel' => 'Главная',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'Админка', 'url' => ['/admin/index']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+        $menuItems[] = ['label' => 'Вход', 'url' => ['/admin/login']];
     } else {
+        $menuItems[] = ['label' => 'Пользователи', 'url' => ['/admin/users']];
         $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
+            . Html::beginForm(['/admin/logout'], 'post')
             . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
+                'Выход (' . Yii::$app->user->identity->login . ')',
                 ['class' => 'btn btn-link logout']
             )
             . Html::endForm()
