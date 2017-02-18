@@ -42,8 +42,13 @@ return [
             'showScriptName' => false,
             'rules' => [
                 '/' => 'site/index',
+
                 '/admin' => 'admin/index',
                 '/admin/login' => 'admin/login',
+
+                '/admin/users' => 'user/index',
+                '/admin/pages' => 'pages/index',
+                '/admin/products' => 'product/index',
             ],
         ],
     ],

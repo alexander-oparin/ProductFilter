@@ -40,6 +40,8 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Вход', 'url' => ['/admin/login']];
     } else {
         $menuItems[] = ['label' => 'Пользователи', 'url' => ['/admin/users']];
+        $menuItems[] = ['label' => 'Страницы', 'url' => ['/admin/pages']];
+        $menuItems[] = ['label' => 'Каталог', 'url' => ['/admin/products']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/admin/logout'], 'post')
             . Html::submitButton(
