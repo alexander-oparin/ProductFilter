@@ -14,6 +14,9 @@ use yii\web\IdentityInterface;
  * @property string $pass
  */
 class User extends ActiveRecord implements IdentityInterface {
+    public $changePass;
+
+
     /**
      * @inheritdoc
      */
@@ -34,6 +37,9 @@ class User extends ActiveRecord implements IdentityInterface {
      */
     public function rules() {
         return [
+            [['login', 'pass'], 'required'],
+            [['id', 'login', 'pass'], 'safe'],
+            [['changePass'], 'boolean'],
         ];
     }
 
@@ -97,5 +103,17 @@ class User extends ActiveRecord implements IdentityInterface {
      */
     public function setPassword($password) {
         $this->pass = Yii::$app->security->generatePasswordHash($password);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels() {
+        return [
+            'id' => 'ID',
+            'login' => 'Логин',
+            'pass' => 'Пароль',
+            'changePass' => 'Сменить пароль',
+        ];
     }
 }

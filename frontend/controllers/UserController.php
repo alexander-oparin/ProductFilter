@@ -21,23 +21,6 @@ class UserController extends Controller {
      */
     public function behaviors() {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'actions' => ['login', 'error'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => ['logout', 'index'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-                'denyCallback' => function ($rule, $action) {
-                    return $this->redirect(['/admin/login']);
-                },
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -52,6 +35,10 @@ class UserController extends Controller {
      * @return mixed
      */
     public function actionIndex() {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/admin/login']);
+        }
+
         $dataProvider = new ActiveDataProvider([
             'query' => User::find(),
         ]);
@@ -67,6 +54,10 @@ class UserController extends Controller {
      * @return mixed
      */
     public function actionView($id) {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/admin/login']);
+        }
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -78,9 +69,15 @@ class UserController extends Controller {
      * @return mixed
      */
     public function actionCreate() {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/admin/login']);
+        }
+
         $model = new User();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->pass = Yii::$app->security->generatePasswordHash($model->pass);
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -96,9 +93,16 @@ class UserController extends Controller {
      * @return mixed
      */
     public function actionUpdate($id) {
-        $model = $this->findModel($id);
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/admin/login']);
+        }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $model = $this->findModel($id);
+        $oldPass = $model->pass;
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->pass = $model->changePass ? Yii::$app->security->generatePasswordHash($model->pass) : $oldPass;
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -114,6 +118,10 @@ class UserController extends Controller {
      * @return mixed
      */
     public function actionDelete($id) {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/admin/login']);
+        }
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

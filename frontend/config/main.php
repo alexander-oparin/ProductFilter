@@ -46,9 +46,11 @@ return [
                 '/admin' => 'admin/index',
                 '/admin/login' => 'admin/login',
 
-                '/admin/users' => 'user/index',
+                '/admin/user' => 'user/index',
                 '/admin/pages' => 'pages/index',
-                '/admin/products' => 'product/index',
+                '/admin/product' => 'product/index',
+
+//                '/user/create' => 'user/create',
             ],
         ],
     ],

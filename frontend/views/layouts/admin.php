@@ -39,9 +39,9 @@ AppAsset::register($this);
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Вход', 'url' => ['/admin/login']];
     } else {
-        $menuItems[] = ['label' => 'Пользователи', 'url' => ['/admin/users']];
+        $menuItems[] = ['label' => 'Пользователи', 'url' => ['/admin/user']];
         $menuItems[] = ['label' => 'Страницы', 'url' => ['/admin/pages']];
-        $menuItems[] = ['label' => 'Каталог', 'url' => ['/admin/products']];
+        $menuItems[] = ['label' => 'Каталог', 'url' => ['/admin/product']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/admin/logout'], 'post')
             . Html::submitButton(

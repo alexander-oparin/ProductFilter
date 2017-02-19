@@ -37,10 +37,10 @@ class Pages extends \yii\db\ActiveRecord {
     public function attributeLabels() {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'search_link' => 'Search Link',
-            'text' => 'Text',
-            'bottom_text' => 'Bottom Text',
+            'name' => 'Заголовок',
+            'search_link' => 'Поисковая ссылка',
+            'text' => 'Текст',
+            'bottom_text' => 'Нижний текст',
         ];
     }
 }
