@@ -5,7 +5,6 @@ namespace frontend\controllers;
 use Yii;
 use common\models\Product;
 use yii\data\ActiveDataProvider;
-use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -21,23 +20,6 @@ class ProductController extends Controller {
      */
     public function behaviors() {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'actions' => ['login', 'error'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => ['logout', 'index'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-                'denyCallback' => function ($rule, $action) {
-                    return $this->redirect(['/admin/login']);
-                },
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -52,6 +34,10 @@ class ProductController extends Controller {
      * @return mixed
      */
     public function actionIndex() {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/admin/login']);
+        }
+
         $dataProvider = new ActiveDataProvider([
             'query' => Product::find(),
         ]);
@@ -67,6 +53,10 @@ class ProductController extends Controller {
      * @return mixed
      */
     public function actionView($id) {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/admin/login']);
+        }
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -78,6 +68,10 @@ class ProductController extends Controller {
      * @return mixed
      */
     public function actionCreate() {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/admin/login']);
+        }
+
         $model = new Product();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -96,6 +90,10 @@ class ProductController extends Controller {
      * @return mixed
      */
     public function actionUpdate($id) {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/admin/login']);
+        }
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -114,6 +112,10 @@ class ProductController extends Controller {
      * @return mixed
      */
     public function actionDelete($id) {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/admin/login']);
+        }
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
