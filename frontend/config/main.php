@@ -14,6 +14,10 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
+            'enableCsrfValidation' => false,
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ],
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -50,6 +54,7 @@ return [
                 '/admin/pages' => 'pages/index',
                 '/admin/product' => 'product/index',
 
+                '/page/<id>' => 'page/view',
 //                '/user/create' => 'user/create',
             ],
         ],

@@ -5,8 +5,6 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "catalog".
- *
  * @property integer $id
  * @property string $name
  * @property integer $width
@@ -27,6 +25,7 @@ class Product extends \yii\db\ActiveRecord {
     public function rules() {
         return [
             [['width', 'height', 'price'], 'integer'],
+            [['id', 'name', 'width', 'height', 'price'], 'safe'],
             [['name'], 'string', 'max' => 100],
         ];
     }

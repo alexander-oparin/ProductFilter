@@ -2,52 +2,72 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = 'Фильтр товаров';
+
+$this->registerJsFile('https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0-rc.2/angular.min.js', ['depends' => ['frontend\assets\AppAsset']]);
+$this->registerJsFile('js/catalog.min.js', ['depends' => ['frontend\assets\AppAsset']]);
+
+
 ?>
 <div class="site-index">
-
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
-
-    <div class="body-content">
-
+    <div class="body-content" ng-app="catalog" ng-controller="CatalogCtrl as Catalog">
+        <h1 class="text-center"><?= $this->title ?></h1>
+        <hr>
         <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
+            <div class="col-lg-3 text-left">
+                <label>Название:
+                    <input type="text" class="form-control" ng-model="Catalog.name_like"/>
+                </label>
             </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
+            <div class="col-lg-3 text-left">
+                <label>Ширина, мин:
+                    <input type="number" class="form-control" ng-model="Catalog.width_min"/>
+                </label>
+                <label>Ширина, макс:
+                    <input type="number" class="form-control" ng-model="Catalog.width_max"/>
+                </label>
             </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+            <div class="col-lg-3 text-left">
+                <label>Высота, мин:
+                    <input type="number" class="form-control" ng-model="Catalog.height_min"/>
+                </label>
+                <label>Высота, макс:
+                    <input type="number" class="form-control" ng-model="Catalog.height_max"/>
+                </label>
+            </div>
+            <div class="col-lg-3 text-left">
+                <label>Цена, мин:
+                    <input type="number" class="form-control" ng-model="Catalog.price_min"/>
+                </label>
+                <label>Цена, макс:
+                    <input type="number" class="form-control" ng-model="Catalog.price_max"/>
+                </label>
             </div>
         </div>
-
+        <hr>
+        <div class="row text-center">
+            <button class="btn btn-lg btn-success" ng-click="Catalog.actionSearch()">Искать</button>
+        </div>
+        <hr>
+        <div class="row">
+            <table class="col-lg-12">
+                <thead>
+                <tr>
+                    <th>Наименование</th>
+                    <th>Ширина</th>
+                    <th>Высота</th>
+                    <th>Цена</th>
+                </tr>
+                </thead>
+                <tbody ng-repeat="product in Catalog.products">
+                <tr>
+                    <td><span>{{product.name}}</span></td>
+                    <td><span>{{product.width}}</span></td>
+                    <td><span>{{product.height}}</span></td>
+                    <td><span>{{product.price}}</span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

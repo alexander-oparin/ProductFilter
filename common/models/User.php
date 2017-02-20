@@ -16,7 +16,6 @@ use yii\web\IdentityInterface;
 class User extends ActiveRecord implements IdentityInterface {
     public $changePass;
 
-
     /**
      * @inheritdoc
      */
@@ -38,6 +37,8 @@ class User extends ActiveRecord implements IdentityInterface {
     public function rules() {
         return [
             [['login', 'pass'], 'required'],
+            [['login'], 'string', 'max' => 20],
+            [['pass'], 'string', 'max' => 100],
             [['id', 'login', 'pass'], 'safe'],
             [['changePass'], 'boolean'],
         ];
