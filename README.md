@@ -15,7 +15,7 @@ Documentation is at [docs/guide/README.md](docs/guide/README.md).
 [![Latest Stable Version](https://poser.pugx.org/yiisoft/yii2-app-advanced/v/stable.png)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
 [![Total Downloads](https://poser.pugx.org/yiisoft/yii2-app-advanced/downloads.png)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
 [![Build Status](https://travis-ci.org/yiisoft/yii2-app-advanced.svg?branch=master)](https://travis-ci.org/yiisoft/yii2-app-advanced)
-[![Test Coverage](https://codeclimate.com/github/alexander-oparin/ProductFilter/badges/coverage.svg)](https://codeclimate.com/github/alexander-oparin/ProductFilter/coverage)
+[![Code Climate](https://codeclimate.com/github/alexander-oparin/ProductFilter/badges/gpa.svg)](https://codeclimate.com/github/alexander-oparin/ProductFilter)
 DIRECTORY STRUCTURE
 -------------------
 
